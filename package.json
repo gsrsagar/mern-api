@@ -1,0 +1,22 @@
+{
+  "name": "mern-api",
+  "version": "1.0.0",
+  "description": "This is MERN Workshop project that is for server development",
+  "main": "index.js",
+  "scripts": {
+    "start": "app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "MERN",
+    "Stack",
+    "Nodejs",
+    "Javascript",
+    "RESTAPI"
+  ],
+  "author": "gsrsagar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
