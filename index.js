@@ -2,18 +2,24 @@ const express = require("express");
 const nodemon = require("nodemon");
 const morgan = require("morgan");
 const { connectDB } = require("./database");
-const  postsROute = require("./routers/postsRouter")
+const  postsROute = require("./routers/postsRouter");
+const studentRoute = require("./routers/stuRouter");
+const dotenv = require("dotenv");
+const cors = require("cors");
+dotenv.config();
 const app = express();
 
-const PORT =3000;
+const PORT =process.env.PORT;
 //Connect databse
 connectDB();
 // const userRouter = require("./routers/usersRouter")
 // Middlewares
+app.use(cors);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
-app.use("/posts",postsROute)
+app.use("/posts",postsROute);
+app.use("/students",studentRoute);
 // app.use("/",userRouter);
 
 
