@@ -1,14 +1,19 @@
 const express = require("express");
 const nodemon = require("nodemon");
 const morgan = require("morgan");
+const { connectDB } = require("./database");
+const  postsROute = require("./routers/postsRouter")
 const app = express();
 
 const PORT =3000;
-const userRouter = require("./routers/usersRouter")
+//Connect databse
+connectDB();
+// const userRouter = require("./routers/usersRouter")
 // Middlewares
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
+app.use("/posts",postsROute)
 // app.use("/",userRouter);
 
 
@@ -20,15 +25,23 @@ let students = [
 ];
 /**Middle wares End */
 
+
+/**Listen and Run Setup  */
+app.listen(PORT,()=>{
+    console.log(`Server is listening on Port no ${PORT} -> http://localhost:${PORT}`)
+})
+
+
+
 app.get('',(req,res)=>{
-    res.send(students);
+    res.status(200).send(students);
 });
 
 app.post("",(req,res)=>{
     let body = req.body;
     if(body!=null && body['name'] && body['rollNo']){
         students.push(body);
-        res.status(200).send(body)
+        res.status(201).send(body)
     } else {
         res.status(400).send("Invalid Request Body");
     }
@@ -62,8 +75,3 @@ app.delete("/:id",(req,res)=>{
     }
 })
 
-
-/**Listen and Run Setup  */
-app.listen(PORT,()=>{
-    console.log(`Server is listening on Port no ${PORT} -> http://localhost:${PORT}`)
-})
